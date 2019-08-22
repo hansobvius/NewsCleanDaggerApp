@@ -11,6 +11,12 @@ public class Article {
     @PrimaryKey(autoGenerate = true)
     int mId;
 
+    @ColumnInfo(name = "source")
+    Source mSource;
+
+    @ColumnInfo(name = "author")
+    String mAuthor;
+
     @ColumnInfo(name = "title")
     String mTitle;
 
@@ -23,11 +29,11 @@ public class Article {
     @ColumnInfo(name = "image")
     String mImage;
 
-    @ColumnInfo(name = "source")
-    String mSource;
-
     @ColumnInfo(name = "date")
     String mDate;
+
+    @ColumnInfo(name = "content")
+    String mContent;
 
     public int getmId() {
         return mId;
@@ -35,6 +41,22 @@ public class Article {
 
     public void setmId(int mId) {
         this.mId = mId;
+    }
+
+    public Source getmSource() {
+        return mSource;
+    }
+
+    public void setmSource(Source mSource) {
+        this.mSource = mSource;
+    }
+
+    public String getmAuthor() {
+        return mAuthor;
+    }
+
+    public void setmAuthor(String mAuthor) {
+        this.mAuthor = mAuthor;
     }
 
     public String getmTitle() {
@@ -69,19 +91,19 @@ public class Article {
         this.mImage = mImage;
     }
 
-    public String getmSource() {
-        return mSource;
-    }
-
-    public void setmSource(String mSource) {
-        this.mSource = mSource;
-    }
-
     public String getmDate() {
         return mDate;
     }
 
     public void setmDate(String mDate) {
         this.mDate = mDate;
+    }
+
+    public String getmContent() {
+        return mContent;
+    }
+
+    public void setmContent(String mContent) {
+        this.mContent = mContent;
     }
 }
