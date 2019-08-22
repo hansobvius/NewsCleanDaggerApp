@@ -3,7 +3,7 @@ package com.example.remote;
 public class Constants {
 
     //Articles
-    public static final String BASE_URL = "https://newsapi.org/v2/top-headlines";
+    public static final String BASE_URL = "https://newsapi.org/v2/";
     public static final String DEFAULT_COUNTRY = "us";
 
     //Search Articles

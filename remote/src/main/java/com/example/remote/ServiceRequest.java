@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.example.remote.factory.ServiceApi;
 import com.example.remote.models.Articles;
+import com.example.remote.models.TopHeadlines;
 
 import java.util.List;
 
@@ -15,27 +16,27 @@ import retrofit2.Response;
 
 public class ServiceRequest {
 
-    private ServiceApi serviceApi;
+    private ServiceApi serviceApi = new ServiceApi();
 
-    public void getArticles(String country, String key){
+    public void getAllArticles(String country, String key){
         serviceApi
                 .getService()
-                .getArticles(country, key)
-                .enqueue(new Callback<List<Articles>>() {
+                .getAllArticles(country, key)
+                .enqueue(new Callback<TopHeadlines>() {
                     @Override
-                    public void onResponse(@NonNull Call<List<Articles>> call, @NonNull Response<List<Articles>> response) {
+                    public void onResponse(Call<TopHeadlines> call, Response<TopHeadlines> response) {
                         if(response.body() != null){
                             Log.i("retrofit", response.body().toString());
                         }else{
-                            Log.i("retrofit", "body are null " + response.code());
+                            Log.i("retrofit", "onResponse error " + response.code());
                         }
-
                     }
 
                     @Override
-                    public void onFailure(@NonNull Call<List<Articles>> call, @NonNull Throwable t) {
-                        Log.i("retrofit", t.toString());
+                    public void onFailure(Call<TopHeadlines> call, Throwable t) {
+                            Log.i("retrofit", "onFailure " + t.toString());
                     }
                 });
+
     }
 }

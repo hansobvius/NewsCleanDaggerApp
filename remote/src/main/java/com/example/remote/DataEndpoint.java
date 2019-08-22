@@ -1,6 +1,7 @@
 package com.example.remote;
 
 import com.example.remote.models.Articles;
+import com.example.remote.models.TopHeadlines;
 
 import java.util.List;
 
@@ -11,8 +12,8 @@ import retrofit2.http.Query;
 
 public interface DataEndpoint {
 
-    @GET("{country}/{apiKey}")
-    Call<List<Articles>> getArticles(
-            @Path("country") String country,
-            @Path("apiKey") String key);
+    @GET("top-headlines")
+    Call<TopHeadlines> getAllArticles(
+            @Query("country") String country,
+            @Query("apiKey") String key);
 }
