@@ -21,15 +21,15 @@ import static com.example.cache.database.NewsDatabase.*;
 
 public class ServiceRequest {
 
-    private ServiceApi serviceApi = new ServiceApi();
-
+    private ServiceApi serviceApi;
     private ArticleDao articleDao;
-
     private Context mContext;
+    private NewsDatabase newsDatabase;
 
     public ServiceRequest(Context context){
         this.mContext = context;
-        NewsDatabase newsDatabase = getNewsDatabase(mContext);
+        this.serviceApi = new ServiceApi();
+        newsDatabase = getNewsDatabase(mContext);
         this.articleDao = newsDatabase.articleDao();
     }
 
