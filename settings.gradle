@@ -1,2 +1,2 @@
-include ':app', ':remote', ':cache'
+include ':app', ':remote', ':cache', ':domain'
 rootProject.name='NewsApp'
