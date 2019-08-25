@@ -9,6 +9,7 @@ import com.example.cache.dao.article.Article;
 import com.example.cache.manager.DatabaseManager;
 import com.example.remote.factory.ServiceApi;
 import com.example.remote.mapper.ProjectMapper;
+import com.example.remote.models.Articles;
 import com.example.remote.models.TopHeadlines;
 
 import java.util.ArrayList;
@@ -40,16 +41,11 @@ public class ServiceRequest {
                     @Override
                     public void onResponse(@NonNull Call<TopHeadlines> call, @NonNull Response<TopHeadlines> response) {
                         if(response.body() != null){
-                            Log.i("retrofit", response.body().toString());
                             List<Article> articlesList = new ArrayList<>();
-                            for(int i = 0; i < response.body().getmArticles().size(); i++){
-                                Article article = new Article();
-                                article = projectMapper.modelConverter(
-                                                response.body().getmArticles().get(i));
-                                articlesList.add(article);
+                            for(Articles articles : response.body().getmArticles()){
+                                articlesList.add(projectMapper.modelConverter(articles));
                             }
                             databaseManager.insertArticles(articlesList, mContext);
-
                         }else{
                             Log.i("retrofit", "onResponse error " + response.code());
                         }

@@ -13,16 +13,16 @@ public class Article {
     @ColumnInfo(name = "articleId")
     String mId;
 
-    @NonNull
-    @PrimaryKey
     @ColumnInfo(name = "name")
-    String mName = "";
+    String mName;
 
     @ColumnInfo(name = "author")
     String mAuthor;
 
+    @NonNull
+    @PrimaryKey
     @ColumnInfo(name = "title")
-    String mTitle;
+    String mTitle = "";
 
     @ColumnInfo(name = "description")
     String mDescription;
