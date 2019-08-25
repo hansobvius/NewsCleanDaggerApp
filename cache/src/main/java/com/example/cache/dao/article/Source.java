@@ -5,10 +5,10 @@ import androidx.room.ColumnInfo;
 public class Source {
 
     @ColumnInfo(name = "id")
-    private String mId;
+    String mId;
 
     @ColumnInfo(name = "name")
-    private String mName;
+    String mName;
 
     public String getmId() {
         return mId;

@@ -5,32 +5,31 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.example.cache.dao.article.ArticleDao;
-import com.example.cache.database.NewsDatabase;
+import com.example.cache.dao.article.Article;
+import com.example.cache.manager.DatabaseManager;
 import com.example.remote.factory.ServiceApi;
-import com.example.remote.models.Articles;
+import com.example.remote.mapper.ProjectMapper;
 import com.example.remote.models.TopHeadlines;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.example.cache.database.NewsDatabase.*;
-
 public class ServiceRequest {
 
     private ServiceApi serviceApi;
-    private ArticleDao articleDao;
     private Context mContext;
-    private NewsDatabase newsDatabase;
+    private DatabaseManager databaseManager;
+    private ProjectMapper projectMapper;
 
     public ServiceRequest(Context context){
         this.mContext = context;
         this.serviceApi = new ServiceApi();
-        newsDatabase = getNewsDatabase(mContext);
-        this.articleDao = newsDatabase.articleDao();
+        this.databaseManager = new DatabaseManager(mContext);
+        this.projectMapper = new ProjectMapper();
     }
 
     public void getAllArticles(String country, String key){
@@ -39,20 +38,27 @@ public class ServiceRequest {
                 .getAllArticles(country, key)
                 .enqueue(new Callback<TopHeadlines>() {
                     @Override
-                    public void onResponse(Call<TopHeadlines> call, Response<TopHeadlines> response) {
+                    public void onResponse(@NonNull Call<TopHeadlines> call, @NonNull Response<TopHeadlines> response) {
                         if(response.body() != null){
                             Log.i("retrofit", response.body().toString());
-//                            articleDao.insertArticle(response.body().getmArticles());
+                            List<Article> articlesList = new ArrayList<>();
+                            for(int i = 0; i < response.body().getmArticles().size(); i++){
+                                Article article = new Article();
+                                article = projectMapper.modelConverter(
+                                                response.body().getmArticles().get(i));
+                                articlesList.add(article);
+                            }
+                            databaseManager.insertArticles(articlesList, mContext);
+
                         }else{
                             Log.i("retrofit", "onResponse error " + response.code());
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<TopHeadlines> call, Throwable t) {
+                    public void onFailure(@NonNull Call<TopHeadlines> call, @NonNull Throwable t) {
                             Log.i("retrofit", "onFailure " + t.toString());
                     }
                 });
-
     }
 }

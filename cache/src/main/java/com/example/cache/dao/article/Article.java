@@ -1,18 +1,22 @@
 package com.example.cache.dao.article;
 
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "article_table")
 public class Article {
 
-    @PrimaryKey(autoGenerate = true)
-    int mId;
+    @ColumnInfo(name = "articleId")
+    String mId;
 
-    @ColumnInfo(name = "source")
-    Source mSource;
+    @NonNull
+    @PrimaryKey
+    @ColumnInfo(name = "name")
+    String mName = "";
 
     @ColumnInfo(name = "author")
     String mAuthor;
@@ -35,20 +39,35 @@ public class Article {
     @ColumnInfo(name = "content")
     String mContent;
 
-    public int getmId() {
+    @Ignore
+    public Article(){}
+
+    public Article(String id, String name, String author, String title, String description, String url, String image, String date, String content){
+        this.mId = id;
+        this.mName = name;
+        this.mAuthor = author;
+        this.mTitle = title;
+        this.mDescription = description;
+        this.mUrl = url;
+        this.mImage = image;
+        this.mDate = date;
+        this.mContent = content;
+    }
+
+    public String getmId() {
         return mId;
     }
 
-    public void setmId(int mId) {
+    public void setmId(String mId) {
         this.mId = mId;
     }
 
-    public Source getmSource() {
-        return mSource;
+    public String getmName() {
+        return mName;
     }
 
-    public void setmSource(Source mSource) {
-        this.mSource = mSource;
+    public void setmName(String mName) {
+        this.mName = mName;
     }
 
     public String getmAuthor() {
