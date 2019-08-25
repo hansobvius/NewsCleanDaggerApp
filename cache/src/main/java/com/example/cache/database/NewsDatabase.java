@@ -7,7 +7,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.example.cache.dao.article.Article;
-import com.example.cache.dao.article.ArticleDao;
+import com.example.cache.dao.article.dao.ArticleDao;
 
 @Database(entities = {Article.class}, version = 1)
 public abstract class NewsDatabase extends RoomDatabase {

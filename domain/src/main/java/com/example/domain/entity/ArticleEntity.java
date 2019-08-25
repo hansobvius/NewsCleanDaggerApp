@@ -1,48 +1,26 @@
-package com.example.cache.dao.article;
+package com.example.domain.entity;
 
+public class ArticleEntity {
 
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.Ignore;
-import androidx.room.PrimaryKey;
+    private String mId;
 
-@Entity(tableName = "article_table")
-public class Article {
+    private String mName;
 
-    @ColumnInfo(name = "articleId")
-    public String mId;
+    private String mAuthor;
 
-    @ColumnInfo(name = "name")
-    public String mName;
+    private String mTitle;
 
-    @ColumnInfo(name = "author")
-    public String mAuthor;
+    private String mDescription;
 
-    @NonNull
-    @PrimaryKey
-    @ColumnInfo(name = "title")
-    public String mTitle = "";
+    private String mUrl;
 
-    @ColumnInfo(name = "description")
-    public String mDescription;
+    private String mImage;
 
-    @ColumnInfo(name = "url")
-    public String mUrl;
+    private String mDate;
 
-    @ColumnInfo(name = "image")
-    public String mImage;
+    private String mContent;
 
-    @ColumnInfo(name = "date")
-    public String mDate;
-
-    @ColumnInfo(name = "content")
-    public String mContent;
-
-    @Ignore
-    public Article(){}
-
-    public Article(String id, String name, String author, String title, String description, String url, String image, String date, String content){
+    public ArticleEntity(String id, String name, String author, String title, String description, String url, String image, String date, String content){
         this.mId = id;
         this.mName = name;
         this.mAuthor = author;

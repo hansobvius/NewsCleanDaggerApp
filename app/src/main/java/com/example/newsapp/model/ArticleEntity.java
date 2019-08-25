@@ -20,6 +20,20 @@ public class ArticleEntity {
 
     private String mContent;
 
+    public ArticleEntity(String id, String name, String author, String title, String description, String url, String image, String date, String content){
+        this.mId = id;
+        this.mName = name;
+        this.mAuthor = author;
+        this.mTitle = title;
+        this.mDescription = description;
+        this.mUrl = url;
+        this.mImage = image;
+        this.mDate = date;
+        this.mContent = content;
+    }
+
+    public ArticleEntity(){}
+
     public String getmId() {
         return mId;
     }
@@ -84,11 +98,11 @@ public class ArticleEntity {
         this.mDate = mDate;
     }
 
-    public String getmContext() {
+    public String getmContent() {
         return mContent;
     }
 
-    public void setmContext(String mContent) {
+    public void setmContent(String mContent) {
         this.mContent = mContent;
     }
 }
