@@ -47,13 +47,13 @@ public class ServiceRequest {
                             }
                             databaseManager.insertArticles(articlesList, mContext);
                         }else{
-                            Log.i("retrofit", "onResponse error " + response.code());
+                            Log.i("newsApp", "onResponse error " + response.code());
                         }
                     }
 
                     @Override
                     public void onFailure(@NonNull Call<TopHeadlines> call, @NonNull Throwable t) {
-                            Log.i("retrofit", "onFailure " + t.toString());
+                            Log.i("newsApp", "onFailure " + t.toString());
                     }
                 });
     }
