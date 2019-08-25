@@ -14,7 +14,7 @@ public abstract class NewsDatabase extends RoomDatabase {
 
     private static final String DATABASE = "DATABASE";
 
-    private static volatile NewsDatabase INSTANCE;
+    public static volatile NewsDatabase INSTANCE;
 
     public abstract ArticleDao articleDao();
 

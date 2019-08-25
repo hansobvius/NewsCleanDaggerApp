@@ -13,6 +13,8 @@ public class MainApplication extends Application {
     @Override
     public void onCreate(){
         super.onCreate();
+        mainApplication = this;
+        initializeComponent();
     }
 
     private void initializeComponent(){
