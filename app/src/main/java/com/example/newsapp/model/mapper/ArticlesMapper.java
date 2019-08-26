@@ -1,13 +1,12 @@
 package com.example.newsapp.model.mapper;
 
-import com.example.cache.dao.article.Article;
-import com.example.newsapp.model.ArticleEntity;
+import com.example.newsapp.model.Article;
 
-public class ArticlesMapper implements MapperImplementation<ArticleEntity, Article> {
+public class ArticlesMapper implements MapperImplementation<Article, Article> {
 
     @Override
-    public ArticleEntity modelToEntity(Article model) {
-        return new ArticleEntity(model.getmId(), model.getmName(), model.getmAuthor(),
+    public Article modelToEntity(Article model) {
+        return new Article(model.getmId(), model.getmName(), model.getmAuthor(),
                 model.getmTitle(), model.getmDescription(), model.getmUrl(), model.getmImage(),
                 model.getmDate(), model.getmContent());
     }

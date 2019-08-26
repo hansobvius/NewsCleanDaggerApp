@@ -5,4 +5,6 @@ import java.util.List;
 public interface EntityMapper<E, M> {
 
     E modelToEntity(M model);
+
+    M entityToModel(E model);
 }

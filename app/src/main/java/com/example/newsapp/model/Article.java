@@ -1,6 +1,6 @@
 package com.example.newsapp.model;
 
-public class ArticleEntity {
+public class Article {
 
     private String mId;
 
@@ -20,7 +20,7 @@ public class ArticleEntity {
 
     private String mContent;
 
-    public ArticleEntity(String id, String name, String author, String title, String description, String url, String image, String date, String content){
+    public Article(String id, String name, String author, String title, String description, String url, String image, String date, String content){
         this.mId = id;
         this.mName = name;
         this.mAuthor = author;
@@ -32,7 +32,7 @@ public class ArticleEntity {
         this.mContent = content;
     }
 
-    public ArticleEntity(){}
+    public Article(){}
 
     public String getmId() {
         return mId;

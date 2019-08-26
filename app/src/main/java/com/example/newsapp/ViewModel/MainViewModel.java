@@ -8,8 +8,7 @@ import androidx.lifecycle.LiveData;
 
 import com.example.newsapp.ViewModel.application.MainApplication;
 import com.example.newsapp.ViewModel.repository.MainRepository;
-import com.example.newsapp.model.ArticleEntity;
-import com.example.newsapp.view.activities.MainActivity;
+import com.example.newsapp.model.Article;
 
 import java.util.List;
 
@@ -17,7 +16,7 @@ import javax.inject.Inject;
 
 public class MainViewModel extends AndroidViewModel {
 
-    public final LiveData<List<ArticleEntity>> listLiveData;
+    public final LiveData<List<Article>> listLiveData;
 
     @Inject
     MainRepository mainRepository;
@@ -28,7 +27,7 @@ public class MainViewModel extends AndroidViewModel {
         listLiveData = mainRepository.getArticlesList();
     }
 
-    public LiveData<List<ArticleEntity>> getArticleObservable(){
+    public LiveData<List<Article>> getArticleObservable(){
         return listLiveData;
     }
 }

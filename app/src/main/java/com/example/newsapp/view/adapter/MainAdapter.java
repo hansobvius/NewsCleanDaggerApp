@@ -13,7 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.newsapp.R;
-import com.example.newsapp.model.ArticleEntity;
+import com.example.newsapp.model.Article;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -21,15 +21,15 @@ import java.util.List;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder> {
 
-    private List<ArticleEntity> articleEntityList = new ArrayList<>();
+    private List<Article> articleList = new ArrayList<>();
     private Context context;
 
     public MainAdapter(Context context){
         this.context = context;
     }
 
-    public void addArticles(List<ArticleEntity> articleEntities){
-        this.articleEntityList = articleEntities;
+    public void addArticles(List<Article> articleEntities){
+        this.articleList = articleEntities;
         notifyDataSetChanged();
     }
 
@@ -42,21 +42,21 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull MainViewHolder holder, int position) {
-        ArticleEntity articleEntity = new ArticleEntity();
-        articleEntity = articleEntityList.get(position);
+        Article article = new Article();
+        article = articleList.get(position);
 
-        Picasso.with(context).load(articleEntity.getmImage()).into(holder.mImageView);
+        Picasso.with(context).load(article.getmImage()).into(holder.mImageView);
 
-        holder.mTitleView.setText(articleEntity.getmTitle());
-        holder.mSourceView.setText(articleEntity.getmName());
-        holder.mDateView.setText(articleEntity.getmDate());
-        holder.mDescriptionView.setText(articleEntity.getmContent());
+        holder.mTitleView.setText(article.getmTitle());
+        holder.mSourceView.setText(article.getmName());
+        holder.mDateView.setText(article.getmDate());
+        holder.mDescriptionView.setText(article.getmContent());
 
     }
 
     @Override
     public int getItemCount() {
-        return articleEntityList.size();
+        return articleList.size();
     }
 
     class MainViewHolder extends RecyclerView.ViewHolder{

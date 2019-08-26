@@ -3,20 +3,20 @@ package com.example.newsapp.ViewModel.repository;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.newsapp.model.ArticleEntity;
+import com.example.newsapp.model.Article;
 
 import java.util.List;
 
 public class MainRepository {
 
-    private List<ArticleEntity> articleEntities;
+    private List<Article> articleEntities;
 
-    public MainRepository(List<ArticleEntity> articleEntities){
+    public MainRepository(List<Article> articleEntities){
         this.articleEntities = articleEntities;
     }
 
-    public LiveData<List<ArticleEntity>> getArticlesList(){
-        final MutableLiveData<List<ArticleEntity>> data = new MutableLiveData<>();
+    public LiveData<List<Article>> getArticlesList(){
+        final MutableLiveData<List<Article>> data = new MutableLiveData<>();
         data.setValue(articleEntities);
         return data;
     }

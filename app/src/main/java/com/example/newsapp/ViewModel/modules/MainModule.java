@@ -1,10 +1,11 @@
 package com.example.newsapp.ViewModel.modules;
 
-import com.example.cache.dao.article.Article;
-import com.example.cache.manager.DatabaseManager;
+import com.example.domain.DomainCore;
+import com.example.domain.entity.ArticleEntity;
 import com.example.newsapp.ViewModel.application.MainApplication;
+import com.example.newsapp.ViewModel.mapper.MainAppMapper;
 import com.example.newsapp.ViewModel.repository.MainRepository;
-import com.example.newsapp.model.ArticleEntity;
+import com.example.newsapp.model.Article;
 import com.example.newsapp.model.mapper.ArticlesMapper;
 import com.example.newsapp.view.adapter.MainAdapter;
 
@@ -19,30 +20,32 @@ import dagger.Provides;
 @Module
 public class MainModule {
 
-    DatabaseManager databaseManager;
-    MainApplication mainApplication;
-    ArticlesMapper articlesMapper;
+    private MainApplication mainApplication;
+    private ArticlesMapper articlesMapper;
+    private DomainCore domainCore;
+    private MainAppMapper mainAppMapper;
 
     public MainModule(MainApplication mainApplication){
         this.mainApplication = mainApplication;
         this.articlesMapper = new ArticlesMapper();
-        this.databaseManager = new DatabaseManager(this.mainApplication.getApplicationContext());
+        this.domainCore = new DomainCore(mainApplication.getApplicationContext());
+        this.mainAppMapper = new MainAppMapper();
     }
 
     @Provides
     @Singleton
-    List<ArticleEntity> providesArticles(){
-        List<ArticleEntity> articleEntities = new ArrayList<>();
-        List<Article> articles = new ArrayList<>(databaseManager.getArticles());
-        for(Article article : articles){
-            articleEntities.add(articlesMapper.modelToEntity(article));
+    List<Article> providesArticles(){
+        List<Article> articles = new ArrayList<>();
+        List<ArticleEntity> articleEntities = new ArrayList<>(domainCore.getArticleList());
+        for(ArticleEntity articleEntity : articleEntities){
+            articles.add(mainAppMapper.entityToModel(articleEntity));
         }
-        return articleEntities;
+        return articles;
     }
 
     @Provides
     @Singleton
-    MainRepository providesMainRepository(List<ArticleEntity> articleEntities){
+    MainRepository providesMainRepository(List<Article> articleEntities){
         return new MainRepository(articleEntities);
     }
 

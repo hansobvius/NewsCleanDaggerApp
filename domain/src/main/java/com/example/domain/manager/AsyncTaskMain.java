@@ -1,5 +1,6 @@
 package com.example.domain.manager;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
 
@@ -11,57 +12,47 @@ import com.example.domain.mapper.ProjectMapper;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AsyncTaskMain implements ThreadManegerImplementation{
+public class AsyncTaskMain implements ManagerImplementation<Article> {
 
     private DatabaseManager databaseManager;
     private Context context;
-    private ThreadManegerImplementation threadManegerImplementation;
 
     public AsyncTaskMain(Context context){
         this.context = context;
-        databaseManager = new DatabaseManager(context);
-        AsyncArticle asyncArticle = (AsyncArticle) new AsyncArticle(context, databaseManager, threadManegerImplementation);
-        asyncArticle.execute();
+        this.databaseManager = new DatabaseManager(context);
     }
 
     @Override
-    public void setArticles(List<ArticleEntity> articleEntityList) {
-
+    public List<Article> getArticles() {
+        return databaseManager.getArticles();
     }
 
     @Override
-    public List<ArticleEntity> getArticles(List<ArticleEntity> articleEntities) {
-        return articleEntities;
+    public void setArticles(List<Article> articles) {
+        databaseManager.insertArticles(articles, context);
     }
 
-    static class AsyncArticle extends AsyncTask<Void, Void, List<ArticleEntity>> {
+    @SuppressLint("StaticFieldLeak")
+    static class insertArticles extends AsyncTask<List<ArticleEntity>, Void, List<ArticleEntity>> {
 
         Context context;
         DatabaseManager databaseManager;
-        List<ArticleEntity> articleEntities = new ArrayList<>();
         ProjectMapper projectMapper = new ProjectMapper();
-        ThreadManegerImplementation threadManegerImplementation;
 
-        AsyncArticle(Context context, DatabaseManager databaseManager, ThreadManegerImplementation threadManegerImplementation){
-            this.context = context;
+        insertArticles(DatabaseManager databaseManager, Context context){
             this.databaseManager = databaseManager;
-            this.threadManegerImplementation = threadManegerImplementation;
+            this.context = context;
         }
 
         @Override
-        protected List<ArticleEntity> doInBackground(Void... voids) {
-            List<Article> articles = new ArrayList<>();
-            articles.addAll(databaseManager.getArticles());
-            for(Article article : articles){
-                articleEntities.add(projectMapper.modelToEntity(article));
+        protected List<ArticleEntity> doInBackground(List<ArticleEntity>... lists) {
+            List<ArticleEntity> listArticle = lists[0];
+            List<Article> article = new ArrayList<>();
+            for(ArticleEntity articleEntity : listArticle){
+                article.add(projectMapper.entityToModel(articleEntity));
             }
-            return articleEntities;
-        }
-
-        @Override
-        protected void onPostExecute(List<ArticleEntity> articleEntities) {
-            super.onPostExecute(articleEntities);
-            threadManegerImplementation.setArticles(articleEntities);
+            databaseManager.insertArticles(article, context);
+            return null;
         }
     }
 }

@@ -14,4 +14,11 @@ public class ProjectMapper implements EntityMapper<ArticleEntity, Article> {
                 model.getmTitle(), model.getmDescription(), model.getmUrl(),
                 model.getmImage(), model.getmDate(), model.getmContent());
     }
+
+    @Override
+    public Article entityToModel(ArticleEntity model) {
+        return new Article(model.getmId(), model.getmName(), model.getmAuthor(),
+                model.getmTitle(), model.getmDescription(), model.getmUrl(), model.getmImage(),
+                model.getmDate(), model.getmContent());
+    }
 }
