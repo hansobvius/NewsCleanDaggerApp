@@ -26,7 +26,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     
-    //Delete this call
+    implementation project(":domain")
     implementation project(":cache")
     implementation project(":remote")
 

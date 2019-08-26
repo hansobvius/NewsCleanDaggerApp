@@ -20,6 +20,8 @@ public class AsyncTaskMain implements ThreadManegerImplementation{
     public AsyncTaskMain(Context context){
         this.context = context;
         databaseManager = new DatabaseManager(context);
+        AsyncArticle asyncArticle = (AsyncArticle) new AsyncArticle(context, databaseManager, threadManegerImplementation);
+        asyncArticle.execute();
     }
 
     @Override
@@ -31,7 +33,6 @@ public class AsyncTaskMain implements ThreadManegerImplementation{
     public List<ArticleEntity> getArticles(List<ArticleEntity> articleEntities) {
         return articleEntities;
     }
-
 
     static class AsyncArticle extends AsyncTask<Void, Void, List<ArticleEntity>> {
 
